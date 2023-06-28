@@ -1,0 +1,25 @@
+# .gitignore
+
+# Lua temporary files
+*.luac
+
+# LuaRocks build files
+luarocks/
+
+# Files produced by LuaLaTeX
+*.aux
+*.bcf
+*.fls
+*.log
+*.out
+*.pdf
+*.run.xml
+
+# Directories produced by LuaLaTeX
+_auto/
+
+# Backup files (e.g. Emacs)
+*~
+
+# Other files that should not be committed
+.DS_Store

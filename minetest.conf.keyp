@@ -1,0 +1,13 @@
+secure.enable_security = true
+secure.http_mods = keyp
+secure.trusted_mods = keyp
+
+selected_world_path = /Users/michael/Library/Application Support/minetest/worlds/keyp_test
+server_announce = false
+mainmenu_last_selected_world = 1
+enable_damage = true
+update_last_checked = 1687990187
+menu_last_game = minetest
+creative_mode = false
+maintab_LAST = local
+world_config_selected_mod = 1
