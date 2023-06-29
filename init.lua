@@ -7,9 +7,9 @@ minetest.register_on_joinplayer(function(player)
     local formspec = 
         "formspec_version[4]" ..
         "size[9,9]" ..
+        "no_prepend[]" ..
         "background[0,0;9,9;login-modal.png;true]" ..
-        -- "box[0.5,0.5;9,7;#8888]" ..
-        -- "bgcolor[#32CD32]" .. -- lime green.
+        "bgcolor[;neither;]" ..
         "textarea[1.5,4;5,.5;url;;"..url.."]" ..
         "button_exit[7,0;1,1;exit;X]" ..
         "button_exit[2,5.5;1,1;next;Next]"
