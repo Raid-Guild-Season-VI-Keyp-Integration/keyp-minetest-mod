@@ -1,29 +1,44 @@
--- In init.lua
-
--- Request the HTTP API
-local http_api = minetest.request_http_api()
-
-if not http_api then
-    print("error", "Failed to get the HTTP API!")
-    return
-end
-
--- Load http_lib.lua
-local http_lib = dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/http_lib.lua")(http_api)
+local step = {}
 
 minetest.register_on_joinplayer(function(player)
-    -- Example call to the HTTP request function
-    http_lib.request_http_get("https://httpbin.org/get")
-    local name = player:get_player_name()
-    local formspec = {
-        "size[10,3]",
-        "label[0.5,0.5;Here is the URL you need to visit:]",
-        "field[0.5,1.5;9,1;url_field;URL;http://example.com]",
-        "button_exit[3,2;2,1;exit;Close]",
-    }
-    minetest.show_formspec(name, "mod:show_url", table.concat(formspec, ""))
+    local player_name = player:get_player_name()
+    step[player_name] = 1
+    local url = "https://login-url.com"
+    local formspec = 
+        "formspec_version[4]" ..
+        "size[9,9]" ..
+        "background[0,0;9,9;login-modal.png;true]" ..
+        -- "box[0.5,0.5;9,7;#8888]" ..
+        -- "bgcolor[#32CD32]" .. -- lime green.
+        "textarea[1.5,4;5,.5;url;;"..url.."]" ..
+        "button_exit[7,0;1,1;exit;X]" ..
+        "button_exit[2,5.5;1,1;next;Next]"
+    minetest.show_formspec(player_name, "keyp:login", formspec)
 end)
 
--- minetest.register_on_joinplayer(function(player)
-    
--- end)
+
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+    if formname == "keyp:login" then
+        local player_name = player:get_player_name()
+        if fields.next then
+            step[player_name] = 2
+            local formspec = "size[6,4]" ..
+                "label[0.5,0.5;Enter the 6-digit code you received:]" ..
+                "field[0.5,2;5,1;code;Code;]" ..
+                "button_exit[2,3;2,1;submit;Submit]"
+            minetest.after(0.1, function()
+                minetest.show_formspec(player_name, "keyp:login", formspec)
+            end)
+        elseif fields.submit then
+            local code = fields.code
+            print(code)
+            -- Do something with the code.
+            step[player_name] = nil -- Reset the step
+        end
+    end
+end)
+
+minetest.register_on_leaveplayer(function(player)
+    local player_name = player:get_player_name()
+    step[player_name] = nil -- Reset the step when the player leaves
+end)
