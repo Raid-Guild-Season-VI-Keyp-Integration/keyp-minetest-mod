@@ -8,11 +8,11 @@ minetest.register_on_joinplayer(function(player)
         "formspec_version[4]" ..
         "size[9,9]" ..
         "no_prepend[]" ..
-        "background[0,0;9,9;login-modal.png;true]" ..
+        "background[0,0;9,9;login-modal-60alpha.png;true]" ..
         "bgcolor[;neither;]" ..
-        "textarea[1.5,4;5,.5;url;;"..url.."]" ..
-        "button_exit[7,0;1,1;exit;X]" ..
-        "button_exit[2,5.5;1,1;next;Next]"
+        "textarea[2,4.5;5,.5;url;;"..url.."]" ..
+        "image_button[8,.25;.5,.5;close-button.png;exit;;false;close-button.png]"..
+        "image_button[3.72,7.25;1.44,1.12;next-button.png;next;;false;next-button.png]"
     minetest.show_formspec(player_name, "keyp:login", formspec)
 end)
 
