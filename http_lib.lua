@@ -5,7 +5,7 @@ return function(http)
     local http_lib = {}
 
     -- Function to make an HTTP GET request
-    function http_lib.request_http_get(url, headers)
+    function http_lib.request_http_get(url, headers, callback)
         -- Use http.fetch to make the HTTP request
         local extra_headers = {}
         for k, v in pairs(headers) do
@@ -15,6 +15,7 @@ return function(http)
             if res.succeeded then
                 print("HTTP GET request succeeded with code " .. res.code)
                 print("Response body: " .. res.data)
+                callback(res)
             else
                 print("HTTP GET request failed with message: " .. res.error_message)
             end

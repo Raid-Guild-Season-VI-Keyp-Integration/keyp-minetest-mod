@@ -28,6 +28,7 @@ local auth_headers = {
 
 minetest.register_on_joinplayer(function(player)
     local player_name = player:get_player_name()
+    player_metadata[player_name] = {}
     step[player_name] = 1
     local url = "https://login-url.com"
     local formspec = 
@@ -62,7 +63,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
             end)
         elseif fields.submit then
             local code = fields.code
-            print(code)
             local headers = auth_headers
             headers["code"] = code
             -- Make the HTTP request
@@ -77,6 +77,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                         local player = minetest.get_player_by_name(player_name)
                         if player then
                             add_wallet_address_to_hud(player, data.wallet_address)
+                        else
+                            print("error", "Player not found!")
                         end
                     else
                         minetest.chat_send_player(player_name, "Failed to get wallet address.")
