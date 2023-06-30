@@ -38,8 +38,8 @@ minetest.register_on_joinplayer(function(player)
         "background[0,0;9,9;login-modal-welcome-75alpha.png;true]" ..
         "bgcolor[;neither;]" ..
         "textarea[2,4.5;5,.5;url;;"..url.."]" ..
-        "image_button[8,.25;.5,.5;close-button.png;exit;;false;close-button.png]"..
-        "image_button[3.72,7.25;1.44,1.12;next-button.png;next;;false;next-button.png]"
+        "image_button[3.72,7.25;1.44,1.12;next-button.png;next;;false;next-button.png]"..
+        "image_button[8,.25;.5,.5;close-button.png;exit;;false;close-button.png]"
     minetest.show_formspec(player_name, "keyp:login", formspec)
 end)
 
@@ -54,14 +54,25 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 "no_prepend[]" ..
                 "background[0,0;9,9;login-modal-75alpha.png;true]" ..
                 "bgcolor[;neither;]" ..
-                "label[0.5,0.5;Enter the 6-digit code you received:]" ..
-                "field[0.5,2;5,1;code;Code;]" ..
-                "image_button[8,.25;.5,.5;close-button.png;exit;;false;close-button.png]"..
-                "image_button[3.72,7.25;1.44,1.12;next-button.png;submit;;false;next-button.png]"
+                "label[2.75,3;Enter the 6-digit code you received:]" ..
+                "field[3.5,4;1.5,.75;code;Code;]" ..
+                "button[0,0;0,0;submit;]"..
+                "image_button[3.72,7.25;1.44,1.12;next-button.png;submit;;false;next-button.png]"..
+                "image_button[8,.25;.5,.5;close-button.png;exit;;false;close-button.png]"
+                
             minetest.after(0.1, function()
                 minetest.show_formspec(player_name, "keyp:login", formspec)
             end)
         elseif fields.submit then
+            local formspec = 
+                "formspec_version[4]" ..
+                "size[9,9]" ..
+                "no_prepend[]" ..
+                "background[0,0;9,9;login-modal-75alpha.png;true]" ..
+                "bgcolor[;neither;]" ..
+                "label[4,4;logging in...]" 
+                
+            minetest.show_formspec(player_name, "keyp:login", formspec)
             local code = fields.code
             local headers = auth_headers
             headers["code"] = code
@@ -75,8 +86,24 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                         player_metadata[player_name].wallet_address = data.wallet_address
                         -- Add the HUD element
                         local player = minetest.get_player_by_name(player_name)
+                        print(player)
                         if player then
+                            print("success")
                             add_wallet_address_to_hud(player, data.wallet_address)
+                            local formspec = 
+                                "formspec_version[4]" ..
+                                "size[9,9]" ..
+                                "no_prepend[]" ..
+                                "background[0,0;9,9;login-modal-75alpha.png;true]" ..
+                                "bgcolor[;neither;]" ..
+                                "label[4,4;success!]" 
+                            minetest.after(0.1, function()
+                                minetest.show_formspec(player_name, "keyp:login", formspec)
+                            end)
+                            minetest.after(0.5, function()
+                            -- minetest.show_formspec(player_name, "keyp:login", formspec)
+                                minetest.close_formspec(player_name, "keyp:login")
+                            end)
                         else
                             print("error", "Player not found!")
                         end
