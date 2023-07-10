@@ -21,4 +21,12 @@ This is a mod for Minetest that adds Keyp login functionality. It requires a fro
 
 5. cd into the repo folder `cd keyp-minetest-mod`
 
-6. build the docker file `docker build -t keyp-minetest-server .`
+6. create the minetest-data folder (add more detail)
+
+7. build the docker file `docker compose -f .yml up`
+
+8. killl it `docker compose -f .yml down`
+
+9. add keyp to the world file world.my `load_mod_keyp = true`
+
+10. restart with compose

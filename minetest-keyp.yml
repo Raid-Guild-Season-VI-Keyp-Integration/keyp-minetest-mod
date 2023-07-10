@@ -4,6 +4,7 @@ services:
     minetest:
         image: lscr.io/linuxserver/minetest:latest
         container_name: minetest
+        env_file: /root/.env
         environment:
             - PUID=1000
             - PGID=1000
