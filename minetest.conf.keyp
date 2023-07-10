@@ -1,2 +1,3 @@
 secure.trusted_mods = keyp
 secure.http_mods = keyp
+load_mod_keyp = true
