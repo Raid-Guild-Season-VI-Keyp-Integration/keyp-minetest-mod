@@ -10,7 +10,7 @@ COPY . /var/lib/minetest/.minetest/mods
 COPY minetest.conf.keyp /var/lib/minetest/.minetest/minetest.conf
 
 # Expose the Minetest server port
-EXPOSE 30000/udp
+# EXPOSE 30000/udp
 
-# Set the default command to run the Minetest server
-CMD ["/usr/local/bin/minetest", "--server"]
+# # Set the default command to run the Minetest server
+# CMD ["/usr/local/bin/minetest"]

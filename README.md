@@ -2,10 +2,10 @@
 
 This is a mod for Minetest that adds Keyp login functionality. It requires a front-end and auth server api.
 
-## Installation
+## Installation for local testing
 
 1. Navigate to the Minetest mods directory (usually `~/.minetest/mods`).
-2. Clone this repository: `git clone https://github.com/username/keyp.git`.
+2. Clone this repository: `git clone https://github.com/Raid-Guild-Season-VI-Keyp-Integration/keyp-minetest-mod.git`.
 3. Rename the resulting folder to `keyp` if it is not already named that.
 4. Start Minetest and enable the mod from the 'Configure' menu.
 
@@ -19,4 +19,6 @@ This is a mod for Minetest that adds Keyp login functionality. It requires a fro
 
 4. grab the mod repo (this repo): `git clone https://github.com/Raid-Guild-Season-VI-Keyp-Integration/keyp-minetest-mod.git`
 
-5. build the docker file
+5. cd into the repo folder `cd keyp-minetest-mod`
+
+6. build the docker file `docker build -t keyp-minetest-server .`
