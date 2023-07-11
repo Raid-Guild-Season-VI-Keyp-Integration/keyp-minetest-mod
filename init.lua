@@ -21,7 +21,7 @@ if not auth_key then
 end
 
 -- Then, when making the HTTP request, include the auth key in the headers
-local auth_api_url = "https://keypmine.luxumbra.dev"
+local auth_api_url = "https://minetest-auth.luxumbra.dev/"
 local auth_headers = {
     ["Authorization"] = "Bearer ".. auth_key
 }
@@ -30,7 +30,7 @@ minetest.register_on_joinplayer(function(player)
     local player_name = player:get_player_name()
     player_metadata[player_name] = {}
     step[player_name] = 1
-    local url = "https://keypmine.vercel.app/"
+    local url = "https://keypmine.luxumbra.dev/ "
     local formspec = 
         "formspec_version[4]" ..
         "size[9,9]" ..
