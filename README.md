@@ -9,7 +9,7 @@ This is a mod for Minetest that adds Keyp login functionality. It requires a fro
 3. Rename the resulting folder to `keyp` if it is not already named that.
 4. Start Minetest and enable the mod from the 'Configure' menu.
 
-## Deployment
+## Deployment for server
 
 1. Create a docker vm (easy via digitial ocean)
 
@@ -17,16 +17,10 @@ This is a mod for Minetest that adds Keyp login functionality. It requires a fro
 
 3. grab the mod repo (this repo): `git clone https://github.com/Raid-Guild-Season-VI-Keyp-Integration/keyp-minetest-mod.git`
 
-4. cd into the repo folder `cd keyp-minetest-mod`
+4. add the .env file at /root/.env which includes the auth server key. It just needs this line: `AUTH_KEY=auth-server-api-key-tbd`
 
-5. create the minetest-data folder (add more detail)
+5. give permissions to bash script `chmod +x keyp-minetest-mod/run-server.sh`
 
-6. build the docker file `docker compose -f minetest-keyp.yml up`
+6. run bash script which will set up folders and run it the server in the background `./keyp-minetest-mod/run-server.sh`
 
-7. kill it `docker compose -f load_mod_keyp.yml down`
-
-8. add the .env file at /root/.env which includes the auth server key
-
-9. add keyp to the world file world.mt `load_mod_keyp = true`
-
-10. restart with `docker compose -f minetest-keyp.yml up`
+7. People can then join the server based on the vm IP at port 30000
