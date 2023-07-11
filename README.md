@@ -21,6 +21,13 @@ This is a mod for Minetest that adds Keyp login functionality. It requires a fro
 
 5. give permissions to bash script `chmod +x keyp-minetest-mod/run-server.sh`
 
-6. run bash script which will set up folders and run it the server in the background `./keyp-minetest-mod/run-server.sh` (ONLY RUN ONCE, do manual updates to the mod with a cp after pulling the latest updates into the image: `cp -r keyp-minetest-mod/* minetest-data/mods/keyp/`)
+6. run bash script which will set up folders and run it the server in the background `./keyp-minetest-mod/run-server.sh` (ONLY RUN ONCE, do manual updates to the mod with a cp, see update section. )
 
 7. People can then join the server based on the vm IP at port 30000
+
+### make updates
+
+1. pull the latest version of this repo
+2. `cp -r keyp-minetest-mod/* minetest-data/mods/keyp/`
+3. kill the server: `docker compose -f keyp-minetest-mod/minetest-keyp.yml down`
+4. start the server `docker compose -f keyp-minetest-mod/minetest-keyp.yml up -d`
