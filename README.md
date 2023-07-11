@@ -11,7 +11,7 @@ This is a mod for Minetest that adds Keyp login functionality. It requires a fro
 
 ## Deployment for server
 
-1. Create a docker vm (easy via digitial ocean)
+1. Create a docker vm
 
 2. ssh into the vm
 
