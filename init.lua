@@ -21,7 +21,7 @@ if not auth_key then
 end
 
 -- Then, when making the HTTP request, include the auth key in the headers
-local auth_api_url = "http://127.0.0.1:5000/"
+local auth_api_url = "https://keypmine.luxumbra.dev"
 local auth_headers = {
     ["Authorization"] = "Bearer ".. auth_key
 }
@@ -30,7 +30,7 @@ minetest.register_on_joinplayer(function(player)
     local player_name = player:get_player_name()
     player_metadata[player_name] = {}
     step[player_name] = 1
-    local url = "https://login-url.com"
+    local url = "https://keypmine.vercel.app/"
     local formspec = 
         "formspec_version[4]" ..
         "size[9,9]" ..
@@ -75,21 +75,21 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
             minetest.show_formspec(player_name, "keyp:login", formspec)
             local code = fields.code
             local headers = auth_headers
-            headers["code"] = code
+            -- headers["code"] = code
             -- Make the HTTP request
-            http_lib.request_http_get(auth_api_url.. "minetest-code-auth", headers, function(response)
+            http_lib.request_http_get(auth_api_url.. "getToken/".. code, headers, function(response)
                 if response.succeeded then
                     local data = minetest.parse_json(response.data)
-                    if data and data.access_token and data.wallet_address then
+                    if data and data.accessToken and data.walletAddress then
                         -- Save access token and wallet address
-                        player_metadata[player_name].access_token = data.access_token
-                        player_metadata[player_name].wallet_address = data.wallet_address
+                        player_metadata[player_name].access_token = data.accessToken
+                        player_metadata[player_name].wallet_address = data.walletAddress
                         -- Add the HUD element
                         local player = minetest.get_player_by_name(player_name)
                         print(player)
                         if player then
                             print("success")
-                            add_wallet_address_to_hud(player, data.wallet_address)
+                            add_wallet_address_to_hud(player, data.walletAddress)
                             local formspec = 
                                 "formspec_version[4]" ..
                                 "size[9,9]" ..
