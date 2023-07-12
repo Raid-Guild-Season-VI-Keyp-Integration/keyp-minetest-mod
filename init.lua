@@ -74,18 +74,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                         local player = minetest.get_player_by_name(player_name)
                         if player then
                             add_wallet_address_to_hud(player, data.walletAddress)
-                            local formspec = 
-                                "formspec_version[4]" ..
-                                "size[9,9]" ..
-                                "no_prepend[]" ..
-                                "background[0,0;9,9;login-modal-75alpha.png;true]" ..
-                                "bgcolor[;neither;]" ..
-                                "label[4,4;success!]" 
                             minetest.after(0.1, function()
-                                minetest.show_formspec(player_name, "keyp:login", formspec)
+                                show_loading_formspec(player_name, "success!")
                             end)
                             minetest.after(0.5, function()
-                            -- minetest.show_formspec(player_name, "keyp:login", formspec)
                                 minetest.close_formspec(player_name, "keyp:login")
                             end)
                             step[player_name] = nil -- Reset the step
@@ -114,8 +106,8 @@ function show_initial_login_formspec(player_name)
         "no_prepend[]" ..
         "background[0,0;9,9;login-modal-welcome-75alpha.png;true]" ..
         "bgcolor[;neither;]" ..
-        "textarea[2,4.5;5,.5;url;;"..login_url.."]" ..
-        "image_button[7,4.5;.5,.5;refresh-button.png;refresh_url;;false;refresh-button.png]".. -- The refresh button
+        "textarea[1.6,4.5;5,.5;url;;"..login_url.."]" ..
+        "image_button[6.8,4.5;.5,.5;refresh-button.png;refresh_url;;false;refresh-button.png]".. -- The refresh button
         "image_button[3.72,7.25;1.44,1.12;next-button.png;next;;false;next-button.png]"..
         "image_button[8,.25;.5,.5;close-button.png;close;;false;close-button.png]"
     local formname = "keyp:login"
@@ -150,7 +142,7 @@ function show_loading_formspec(player_name, message)
         "no_prepend[]" ..
         "background[0,0;9,9;login-modal-75alpha.png;true]" ..
         "bgcolor[;neither;]" ..
-        "label[4,4;"..message.."]" 
+        "label[3.75,4;"..message.."]" 
                 
     minetest.show_formspec(player_name, "keyp:login", formspec)
 end
@@ -185,7 +177,7 @@ function logout(player_name)
     if player and player_metadata[player_name] and player_metadata[player_name].hud_id then
         player:hud_remove(player_metadata[player_name].hud_id)
     end
-    player_metadata[player_name] = nil
+    player_metadata[player_name] = {}
     minetest.chat_send_player(player_name, "Successfully logged out.")
 end
 
