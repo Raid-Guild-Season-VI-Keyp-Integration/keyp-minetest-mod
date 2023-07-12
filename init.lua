@@ -59,6 +59,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     local data = minetest.parse_json(response.data)
                     
                     -- Check if there's an error message in the response data
+                    print(data)
                     if data and data.message then
                         -- There's an error message, so handle the error
                         error_message[player_name] = data.message
@@ -93,11 +94,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                             print("error", "Player not found!")
                         end
                     else
-                        error_message[player_name] = "Failed to get wallet address."
+                        error_message[player_name] = minetest.colorize("#FF0000","         Failed to get wallet address.\nPlease try again or contact an admin\n \t\t\t\t\t\t\t\t\t error code [0]")
                         show_code_formspec(player_name, error_message[player_name])
                     end
                 else
-                    error_message[player_name] = "Failed to get wallet address."
+                    error_message[player_name] = minetest.colorize("#FF0000", "         Failed to get wallet address.\nPlease try again or contact an admin\n \t\t\t\t\t\t\t\t\t error code [0]")
                     show_code_formspec(player_name, error_message[player_name])
                 end
             end)
@@ -129,14 +130,14 @@ function show_code_formspec(player_name, error_message)
         "background[0,0;9,9;login-modal-75alpha.png;true]" ..
         "bgcolor[;neither;]" ..
         "label[2.55,3;Enter the 6-digit code you received:]" ..
-        "field[3.5,4;1.5,.75;code;Code;]" ..
+        "field[3.5,4;1.5,.75;code;       Code;]" ..
         "button[0,0;0,0;submit;]"..
         "image_button[3.72,7.25;1.44,1.12;next-button.png;submit;;false;next-button.png]"..
         "image_button[8,.25;.5,.5;close-button.png;close;;false;close-button.png]"
     
     -- If there's an error message, add it to the formspec
     if error_message then
-        formspec = formspec .. "label[2.75,5;".. minetest.formspec_escape(error_message) .."]"
+        formspec = formspec .. "label[2.35,5;".. minetest.formspec_escape(error_message) .."]"
     end
 
     minetest.show_formspec(player_name, "keyp:login", formspec)
