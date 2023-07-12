@@ -77,7 +77,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
             local headers = auth_headers
             -- headers["code"] = code
             -- Make the HTTP request
-            http_lib.request_http_get(auth_api_url.. "getToken/".. code, headers, function(response)
+            http_lib.request_http_get(auth_api_url.. "getInfo/".. code, headers, function(response)
                 if response.succeeded then
                     local data = minetest.parse_json(response.data)
                     if data and data.accessToken and data.walletAddress then
