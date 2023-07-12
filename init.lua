@@ -86,11 +86,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                             print("error", "Player not found!")
                         end
                     else
-                        error_message[player_name] = minetest.colorize("#FF0000","         Failed to get wallet address.\nPlease try again or contact an admin\n \t\t\t\t\t\t\t\t\t error code [0]")
+                        error_message[player_name] = minetest.colorize("#FF0000","                                  Failed to get wallet address.\nPlease sign out in your browser and try again or contact an admin\n \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t error code [0]")
                         show_code_formspec(player_name, error_message[player_name])
                     end
                 else
-                    error_message[player_name] = minetest.colorize("#FF0000", "         Failed to get wallet address.\nPlease try again or contact an admin\n \t\t\t\t\t\t\t\t\t error code [0]")
+                    error_message[player_name] = minetest.colorize("#FF0000", "         Failed to get wallet address.\nPlease sign out in your browser and try again or contact an admin\n \t\t\t\t\t\t\t\t\t error code [0]")
                     show_code_formspec(player_name, error_message[player_name])
                 end
             end)
@@ -129,7 +129,7 @@ function show_code_formspec(player_name, error_message)
     
     -- If there's an error message, add it to the formspec
     if error_message then
-        formspec = formspec .. "label[2.35,5;".. minetest.formspec_escape(error_message) .."]"
+        formspec = formspec .. "label[.8,5;".. minetest.formspec_escape(error_message) .."]"
     end
 
     minetest.show_formspec(player_name, "keyp:login", formspec)
