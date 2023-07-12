@@ -131,7 +131,7 @@ function add_wallet_address_to_hud(player, wallet_address)
     player:hud_add({
         hud_elem_type = "text",
         position = {x = 1, y = 0},
-        offset = {x = -10, y = 10},
+        offset = {x = -475, y = 10},
         text = "Wallet: " .. wallet_address,
         alignment = {x = 1, y = 1},
         number = 0xFFFFFF
